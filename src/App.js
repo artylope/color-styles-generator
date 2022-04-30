@@ -82,13 +82,81 @@ function App() {
     arrayLeft = arrayLeft.reverse();
 
     let array = [...arrayLeft, bValue, ...arrayRight];
+    return array.reverse();
+  };
+
+  let primarySaturationArray = function (sValue) {
+    console.log('in sat');
+    let sMax = sValue;
+    let sMin = 5;
+    let arrayLeft = [];
+    let arrayRight = [];
+    let stopsLeft = 6;
+    let stopsRight = 4;
+
+    for (let i = 1; i < stopsRight + 1; i++) {
+      arrayRight.push(sMax);
+    }
+
+    for (let i = 1; i < stopsLeft + 1; i++) {
+      let averageLeft = (sValue - sMin) / stopsLeft;
+
+      arrayLeft.push(Math.round(sValue - i * averageLeft));
+    }
+
+    arrayLeft = arrayLeft.reverse();
+
+    let array = [...arrayLeft, sValue, ...arrayRight];
     return array;
   };
 
-  let palette = brightnessArray(getBrightness('#2B49B5'));
-  let hue = getHue('#2B49B5');
-  let saturation = getSaturation('#2B49B5');
+  let neutralSaturationArray = function (sValue) {
+    console.log('in sat');
+    let sMax = 25;
+    let sMid = 15;
+    let sMin = 0;
+    let arrayLeft = [];
+    let arrayRight = [];
+    let stopsLeft = 6;
+    let stopsRight = 4;
 
+    for (let i = 1; i < stopsRight + 1; i++) {
+      arrayRight.push(sMax);
+    }
+
+    for (let i = 1; i < stopsLeft + 1; i++) {
+      let averageLeft = (sMax - sMid) / stopsLeft;
+
+      arrayLeft.push(Math.round(i * averageLeft));
+    }
+
+    console.log('arrayLeft', arrayLeft);
+
+    let array = [...arrayLeft, sMid, ...arrayRight];
+    return array;
+  };
+
+  let brightnessRange = brightnessArray(getBrightness('#2B49B5'));
+  let hue = getHue('#2B49B5');
+  let primarySaturationRange = primarySaturationArray(getSaturation('#2B49B5'));
+  console.log('saturation', primarySaturationRange);
+
+  let neutralSaturationRange = neutralSaturationArray(getSaturation('#2B49B5'));
+  console.log('neutralSaturationRange', neutralSaturationRange);
+
+  let colorRange = [
+    '025',
+    '050',
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900',
+  ];
   const HSBToRGB = (h, s, b) => {
     s /= 100;
     b /= 100;
@@ -97,20 +165,48 @@ function App() {
     return [255 * f(5), 255 * f(3), 255 * f(1)];
   };
 
-  let swatchElements = palette.map((value) => {
+  let primaryElements = brightnessRange.map((brightness, index) => {
     return (
       <div
         className="swatch"
-        style={{ background: `rgba(${HSBToRGB(hue, saturation, value)})` }}
+        style={{
+          background: `rgba(${HSBToRGB(
+            hue,
+            primarySaturationRange[index],
+            brightness
+          )})`,
+        }}
+        key={index}
       >
-        {value}
+        {`primary-${colorRange[index]}`}
       </div>
     );
   });
 
-  console.log(swatchElements);
+  let neutralElements = brightnessRange.map((brightness, index) => {
+    return (
+      <div
+        className="swatch"
+        style={{
+          background: `rgba(${HSBToRGB(
+            hue,
+            neutralSaturationRange[index],
+            brightness
+          )})`,
+        }}
+        key={index}
+      >
+        {`neutral-${colorRange[index]}`}
+      </div>
+    );
+  });
 
-  return <div>{swatchElements}</div>;
+  return (
+    <div className="group">
+      <div className="palette">{primaryElements}</div>
+      <div className="palette">{neutralElements}</div>
+    </div>
+  );
 }
 
 export default App;
