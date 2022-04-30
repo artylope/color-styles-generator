@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/Swatch.scss';
-import colorcolor from 'colorcolor';
 
 const Swatch = (props) => {
   const HSBToRGB = (h, s, b) => {
@@ -11,11 +10,24 @@ const Swatch = (props) => {
     return [255 * f(5), 255 * f(3), 255 * f(1)];
   };
 
-  console.log(props);
+  console.log('props', props);
 
-  let convertedColor = HSBToRGB(props.hValue, props.sValue, props.bValue);
-  console.log('converted', convertedColor);
-  return <div style={{ background: `rgba(${convertedColor})` }}>swatch</div>;
+  let colorFill = HSBToRGB(
+    parseInt(props.h),
+    parseInt(props.s),
+    parseInt(props.b)
+  );
+
+  console.log(colorFill);
+
+  return (
+    <div className="swatch" style={{ background: `rgb(${colorFill})` }}>
+      <h5>{props.name}</h5>
+      <p>{props.h}</p>
+      <p>{props.s}</p>
+      <p>{props.b}</p>
+    </div>
+  );
 };
 
 export default Swatch;

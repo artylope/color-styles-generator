@@ -4,9 +4,14 @@ import Palette from './components/Palette';
 import Swatch from './components/Swatch';
 import data from './data/data';
 import colorcolor from 'colorcolor';
+import { useState } from 'react';
 
 function App() {
-  // console.log('data', data);
+  const [chosenColor, setChosenColor] = useState('#2B49B5');
+  const [noOfStops, setNoOfStops] = useState(11);
+  const [stopsMid, setStopsMid] = useState(7);
+  const stopsLeft = stopsMid - 1;
+  const stopsRight = noOfStops - stopsMid;
 
   function getHsb(hex) {
     let inputColor = colorcolor(hex, 'hsb');
@@ -16,6 +21,7 @@ function App() {
       .replace('%', '')
       .replace('%', '')
       .split(',');
+    console.log('hsb', hsb);
     return hsb;
   }
 
@@ -55,9 +61,9 @@ function App() {
     return parseInt(bValue);
   }
 
-  console.log('h', getHue('#2B49B5'));
-  console.log('s', getSaturation('#2B49B5'));
-  console.log('b', getBrightness('#2B49B5'));
+  // console.log('h', getHue(chosenColor));
+  // console.log('s', getSaturation(chosenColor));
+  // console.log('b', getBrightness(chosenColor));
 
   //derive brightness array based on the inputColor's brightness
   let brightnessArray = function (bValue) {
@@ -65,8 +71,6 @@ function App() {
     let bMin = 15;
     let arrayLeft = [];
     let arrayRight = [];
-    let stopsLeft = 6;
-    let stopsRight = 4;
 
     for (let i = 1; i < stopsRight + 1; i++) {
       let averageRight = (bMax - bValue) / stopsRight;
@@ -85,14 +89,11 @@ function App() {
     return array.reverse();
   };
 
-  let primarySaturationArray = function (sValue) {
-    console.log('in sat');
+  let colorSaturationArray = function (sValue) {
     let sMax = sValue;
     let sMin = 5;
     let arrayLeft = [];
     let arrayRight = [];
-    let stopsLeft = 6;
-    let stopsRight = 4;
 
     for (let i = 1; i < stopsRight + 1; i++) {
       let averageRight = (sMax - sValue) / stopsRight;
@@ -118,8 +119,6 @@ function App() {
     let sMin = 0;
     let arrayLeft = [];
     let arrayRight = [];
-    let stopsLeft = 6;
-    let stopsRight = 4;
 
     for (let i = 1; i < stopsRight + 1; i++) {
       let averageRight = (sMid - sMin) / stopsRight;
@@ -139,12 +138,14 @@ function App() {
     return array;
   };
 
-  let brightnessRange = brightnessArray(getBrightness('#2B49B5'));
-  let hue = getHue('#2B49B5');
-  let primarySaturationRange = primarySaturationArray(getSaturation('#2B49B5'));
-  console.log('primarySaturationRange', primarySaturationRange);
+  let brightnessRange = brightnessArray(getBrightness(chosenColor));
+  let hue = getHue(chosenColor);
+  let colorSaturationRange = colorSaturationArray(getSaturation(chosenColor));
+  console.log('colorSaturationRange', colorSaturationRange);
 
-  let neutralSaturationRange = neutralSaturationArray(getSaturation('#2B49B5'));
+  let neutralSaturationRange = neutralSaturationArray(
+    getSaturation(chosenColor)
+  );
   console.log('neutralSaturationRange', neutralSaturationRange);
 
   let colorRange = [
@@ -175,7 +176,7 @@ function App() {
         style={{
           background: `rgba(${HSBToRGB(
             hue,
-            primarySaturationRange[index],
+            colorSaturationRange[index],
             brightness
           )})`,
         }}
@@ -208,6 +209,7 @@ function App() {
     <div className="group">
       <div className="palette">{primaryElements}</div>
       <div className="palette">{neutralElements}</div>
+      <Swatch name="primary/025" h="240" s="76" b="71" />
     </div>
   );
 }
