@@ -10,15 +10,11 @@ const Swatch = (props) => {
     return [255 * f(5), 255 * f(3), 255 * f(1)];
   };
 
-  console.log('props', props);
-
   let colorFill = HSBToRGB(
     parseInt(props.h),
     parseInt(props.s),
     parseInt(props.b)
   );
-
-  console.log(colorFill);
 
   return (
     <div className="swatch" style={{ background: `rgb(${colorFill})` }}>
