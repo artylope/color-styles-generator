@@ -5,6 +5,7 @@ import Swatch from './components/Swatch';
 import data from './data/data';
 import colorcolor from 'colorcolor';
 import { useState } from 'react';
+import { HexColorPicker, HexColorInput } from 'react-colorful';
 
 function App() {
   const [chosenColor, setChosenColor] = useState('#2B49B5');
@@ -188,11 +189,18 @@ function App() {
     );
   });
 
+  function onColorChange() {
+    console.log();
+  }
   return (
-    <div className="group">
-      <div className="palette">{primaryElements}</div>
-      <div className="palette">{neutralElements}</div>
-    </div>
+    <>
+      <HexColorPicker color={chosenColor} onChange={setChosenColor} />;
+      <HexColorInput color={chosenColor} onChange={setChosenColor} />
+      <div className="group">
+        <div className="palette">{primaryElements}</div>
+        <div className="palette">{neutralElements}</div>
+      </div>
+    </>
   );
 }
 
