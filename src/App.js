@@ -95,7 +95,8 @@ function App() {
     let stopsRight = 4;
 
     for (let i = 1; i < stopsRight + 1; i++) {
-      arrayRight.push(sMax);
+      let averageRight = (sMax - sValue) / stopsRight;
+      arrayRight.push(sValue + i * averageRight);
     }
 
     for (let i = 1; i < stopsLeft + 1; i++) {
@@ -121,7 +122,9 @@ function App() {
     let stopsRight = 4;
 
     for (let i = 1; i < stopsRight + 1; i++) {
-      arrayRight.push(sMax);
+      let averageRight = (sMid - sMin) / stopsRight;
+
+      arrayRight.push(Math.round(sMid + i * averageRight));
     }
 
     for (let i = 1; i < stopsLeft + 1; i++) {
@@ -139,7 +142,7 @@ function App() {
   let brightnessRange = brightnessArray(getBrightness('#2B49B5'));
   let hue = getHue('#2B49B5');
   let primarySaturationRange = primarySaturationArray(getSaturation('#2B49B5'));
-  console.log('saturation', primarySaturationRange);
+  console.log('primarySaturationRange', primarySaturationRange);
 
   let neutralSaturationRange = neutralSaturationArray(getSaturation('#2B49B5'));
   console.log('neutralSaturationRange', neutralSaturationRange);
