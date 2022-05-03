@@ -211,9 +211,17 @@ function App() {
     );
   });
 
-  let innerCode = brightnessRange.map((brightness, index) => {
+  let primaryInnerCode = brightnessRange.map((brightness, index) => {
     return `
-        ${colorRange[index]} : {
+        "${colorRange[index]}": {
+          "value": "${HSBToHex(hue, normalSaturationRange[index], brightness)}",
+          "type": "color"
+        }`;
+  });
+
+  let neutralInnerCode = brightnessRange.map((brightness, index) => {
+    return `
+        "${colorRange[index]}": {
           "value": "${HSBToHex(
             hue,
             neutralSaturationRange[index],
@@ -224,7 +232,8 @@ function App() {
   });
 
   let displayCode = `
-      "Neutral": {${innerCode}}`;
+      "Primary": {${primaryInnerCode}},
+      "Neutral": {${neutralInnerCode}},`;
   return (
     <>
       <HexColorPicker color={chosenColor} onChange={setChosenColor} />;
@@ -232,12 +241,14 @@ function App() {
       <div className="group">
         <div className="palette">{primaryElements}</div>
         <div className="palette">{neutralElements}</div>
-        <CopyBlock
-          text={displayCode}
-          language="javascript"
-          theme={dracula}
-          codeBlock
-        />
+        <div style={{ width: '100%' }}>
+          <CopyBlock
+            text={displayCode}
+            language="javascript"
+            theme={dracula}
+            codeBlock
+          />
+        </div>
       </div>
     </>
   );
