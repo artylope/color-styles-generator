@@ -28,9 +28,9 @@ const Swatch = (props) => {
   return (
     <div className="swatch" style={{ background: `rgb(${colorFill})` }}>
       <h5>{props.name}</h5>
-      <p>{props.h}</p>
-      <p>{props.s}</p>
-      <p>{props.b}</p>
+      <p>h {props.h}</p>
+      <p>s {props.s}</p>
+      <p>b {props.b}</p>
       <p>{hexCode}</p>
     </div>
   );
