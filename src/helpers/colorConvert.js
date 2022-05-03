@@ -20,3 +20,15 @@ export function HSBToHex(h, s, b) {
 
   return hexCode;
 }
+
+export function HexToHSB(hex) {
+  let hsbStr = colorcolor(hex, 'hsb');
+  let hsb = hsbStr
+    .split('hsb(')[1]
+    .replace(')', '')
+    .replace('%', '')
+    .replace('%', '')
+    .split(',');
+  console.log('hsb', hsb);
+  return hsb;
+}

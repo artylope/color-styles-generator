@@ -7,6 +7,8 @@ import colorcolor from 'colorcolor';
 import { useState } from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { CopyBlock, dracula } from 'react-code-blocks';
+import { HexToHSB, HSBToHex } from './helpers/colorConvert';
+import { getHue, getSaturation, getBrightness } from './helpers/hsb';
 
 function App() {
   const [chosenColor, setChosenColor] = useState('#2B49B5');
@@ -27,54 +29,6 @@ function App() {
     '800',
     '900',
   ];
-
-  function getHsb(hex) {
-    let inputColor = colorcolor(hex, 'hsb');
-    let hsb = inputColor
-      .split('hsb(')[1]
-      .replace(')', '')
-      .replace('%', '')
-      .replace('%', '')
-      .split(',');
-    console.log('hsb', hsb);
-    return hsb;
-  }
-
-  function getHue(hex) {
-    let inputColor = colorcolor(hex, 'hsb');
-    let hsb = inputColor
-      .split('hsb(')[1]
-      .replace(')', '')
-      .replace('%', '')
-      .replace('%', '')
-      .split(',');
-    let hValue = hsb[0];
-    return parseInt(hValue);
-  }
-
-  function getSaturation(hex) {
-    let inputColor = colorcolor(hex, 'hsb');
-    let hsb = inputColor
-      .split('hsb(')[1]
-      .replace(')', '')
-      .replace('%', '')
-      .replace('%', '')
-      .split(',');
-    let sValue = hsb[1];
-    return parseInt(sValue);
-  }
-
-  function getBrightness(hex) {
-    let inputColor = colorcolor(hex, 'hsb');
-    let hsb = inputColor
-      .split('hsb(')[1]
-      .replace(')', '')
-      .replace('%', '')
-      .replace('%', '')
-      .split(',');
-    let bValue = hsb[2];
-    return parseInt(bValue);
-  }
 
   // console.log('h', getHue(chosenColor));
   // console.log('s', getSaturation(chosenColor));
@@ -165,27 +119,6 @@ function App() {
     getSaturation(chosenColor)
   );
   console.log('neutralSaturationRange', neutralSaturationRange);
-
-  const HSBToRGB = (h, s, b) => {
-    s /= 100;
-    b /= 100;
-    const k = (n) => (n + h / 60) % 6;
-    const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
-    return [
-      Math.round(255 * f(5)),
-      Math.round(255 * f(3)),
-      Math.round(255 * f(1)),
-    ];
-  };
-
-  const HSBToHex = (h, s, b) => {
-    let colorFill = HSBToRGB(parseInt(h), parseInt(s), parseInt(b));
-
-    let rgb = `rgb(${colorFill})`;
-    let hexCode = colorcolor(`rgb(${colorFill})`, 'hex');
-
-    return hexCode;
-  };
 
   let primaryElements = brightnessRange.map((brightness, index) => {
     return (
