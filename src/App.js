@@ -42,30 +42,6 @@ function App() {
   let neutralSaturationScale = getMutedSaturationArray(saturation);
   // console.log('neutralSaturationScale', neutralSaturationScale);
 
-  let primaryElements = brightnessScale.map((brightness, index) => {
-    return (
-      <Swatch
-        key={index}
-        name={`primary-${colorLabel[index]}`}
-        h={hue}
-        s={normalSaturationScale[index]}
-        b={brightness}
-      />
-    );
-  });
-
-  let neutralElements = brightnessScale.map((brightness, index) => {
-    return (
-      <Swatch
-        key={index}
-        name={`neutral-${colorLabel[index]}`}
-        h={hue}
-        s={neutralSaturationScale[index]}
-        b={brightness}
-      />
-    );
-  });
-
   let primaryInnerCode = brightnessScale.map((brightness, index) => {
     return `
         "${colorLabel[index]}": {
@@ -94,8 +70,20 @@ function App() {
       <HexColorPicker color={chosenColor} onChange={setChosenColor} />;
       <HexColorInput color={chosenColor} onChange={setChosenColor} />
       <div className="group">
-        <div className="palette">{primaryElements}</div>
-        <div className="palette">{neutralElements}</div>
+        {/* <div className="palette">{primaryElements}</div>
+        <div className="palette">{neutralElements}</div> */}
+        <Palette
+          type="normal"
+          name="primary"
+          color={chosenColor}
+          brightnessScale={brightnessScale}
+        />
+        <Palette
+          type="muted"
+          name="neutral"
+          color={chosenColor}
+          brightnessScale={brightnessScale}
+        />
         <div style={{ width: '100%' }}>
           <CopyBlock
             text={displayCode}
