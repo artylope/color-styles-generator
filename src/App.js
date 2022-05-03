@@ -6,6 +6,7 @@ import data from './data/data';
 import colorcolor from 'colorcolor';
 import { useState } from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
+import { CopyBlock, dracula } from 'react-code-blocks';
 
 function App() {
   const [chosenColor, setChosenColor] = useState('#2B49B5');
@@ -165,6 +166,27 @@ function App() {
   );
   console.log('neutralSaturationRange', neutralSaturationRange);
 
+  const HSBToRGB = (h, s, b) => {
+    s /= 100;
+    b /= 100;
+    const k = (n) => (n + h / 60) % 6;
+    const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+    return [
+      Math.round(255 * f(5)),
+      Math.round(255 * f(3)),
+      Math.round(255 * f(1)),
+    ];
+  };
+
+  const HSBToHex = (h, s, b) => {
+    let colorFill = HSBToRGB(parseInt(h), parseInt(s), parseInt(b));
+
+    let rgb = `rgb(${colorFill})`;
+    let hexCode = colorcolor(`rgb(${colorFill})`, 'hex');
+
+    return hexCode;
+  };
+
   let primaryElements = brightnessRange.map((brightness, index) => {
     return (
       <Swatch
@@ -189,9 +211,20 @@ function App() {
     );
   });
 
-  function onColorChange() {
-    console.log();
-  }
+  let innerCode = brightnessRange.map((brightness, index) => {
+    return `
+        ${colorRange[index]} : {
+          "value": "${HSBToHex(
+            hue,
+            neutralSaturationRange[index],
+            brightness
+          )}",
+          "type": "color"
+        }`;
+  });
+
+  let displayCode = `
+      "Neutral": {${innerCode}}`;
   return (
     <>
       <HexColorPicker color={chosenColor} onChange={setChosenColor} />;
@@ -199,6 +232,12 @@ function App() {
       <div className="group">
         <div className="palette">{primaryElements}</div>
         <div className="palette">{neutralElements}</div>
+        <CopyBlock
+          text={displayCode}
+          language="javascript"
+          theme={dracula}
+          codeBlock
+        />
       </div>
     </>
   );

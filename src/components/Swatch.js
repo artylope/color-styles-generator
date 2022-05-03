@@ -15,15 +15,20 @@ const Swatch = (props) => {
     ];
   };
 
+  const HSBToHex = (h, s, b) => {
+    let colorFill = HSBToRGB(parseInt(h), parseInt(s), parseInt(b));
+
+    let rgb = `rgb(${colorFill})`;
+    let hexCode = colorcolor(`rgb(${colorFill})`, 'hex');
+
+    return hexCode;
+  };
+
   let colorFill = HSBToRGB(
     parseInt(props.h),
     parseInt(props.s),
     parseInt(props.b)
   );
-
-  let rgb = `rgb(${colorFill})`;
-  console.log('rgb', rgb);
-  let hexCode = colorcolor(`rgb(${colorFill})`, 'hex');
 
   return (
     <div className="swatch" style={{ background: `rgb(${colorFill})` }}>
@@ -31,7 +36,7 @@ const Swatch = (props) => {
       <p>h {props.h}</p>
       <p>s {props.s}</p>
       <p>b {props.b}</p>
-      <p>{hexCode}</p>
+      <p>{HSBToHex(props.h, props.s, props.b)}</p>
     </div>
   );
 };
