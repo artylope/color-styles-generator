@@ -84,6 +84,18 @@ function App() {
           color={chosenColor}
           brightnessScale={brightnessScale}
         />
+        <Palette
+          type="normal"
+          name="secondary"
+          color="#2E1496"
+          brightnessScale={brightnessScale}
+        />
+        <Palette
+          type="normal"
+          name="tertiary"
+          color="#18ABAB"
+          brightnessScale={brightnessScale}
+        />
         <div style={{ width: '100%' }}>
           <CopyBlock
             text={displayCode}
