@@ -12,7 +12,7 @@ const Swatch = (props) => {
 
   let stylesClasses = 'swatch';
 
-  if (props.b > 70) {
+  if (props.b > 80) {
     stylesClasses += ' text-is-dark';
   }
 
