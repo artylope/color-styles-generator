@@ -69,34 +69,62 @@ function App() {
     <>
       <HexColorPicker color={chosenColor} onChange={setChosenColor} />;
       <HexColorInput color={chosenColor} onChange={setChosenColor} />
-      <div className="group">
+      <div className="canvas">
+        <div className="palette-panel">
+          <Palette
+            type="normal"
+            name="primary"
+            color={chosenColor}
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="muted"
+            name="neutral"
+            color={chosenColor}
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="normal"
+            name="success"
+            color="#028D50"
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="normal"
+            name="danger"
+            color="#C31919"
+            brightnessScale={brightnessScale}
+          />
+
+          <Palette
+            type="normal"
+            name="warning"
+            color="#E89B2A"
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="normal"
+            name="info"
+            color="#3E8BD3"
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="normal"
+            name="secondary"
+            color="#2E1496"
+            brightnessScale={brightnessScale}
+          />
+          <Palette
+            type="normal"
+            name="tertiary"
+            color="#18ABAB"
+            brightnessScale={brightnessScale}
+          />
+        </div>
         {/* <div className="palette">{primaryElements}</div>
         <div className="palette">{neutralElements}</div> */}
-        <Palette
-          type="normal"
-          name="primary"
-          color={chosenColor}
-          brightnessScale={brightnessScale}
-        />
-        <Palette
-          type="muted"
-          name="neutral"
-          color={chosenColor}
-          brightnessScale={brightnessScale}
-        />
-        <Palette
-          type="normal"
-          name="secondary"
-          color="#2E1496"
-          brightnessScale={brightnessScale}
-        />
-        <Palette
-          type="normal"
-          name="tertiary"
-          color="#18ABAB"
-          brightnessScale={brightnessScale}
-        />
-        <div style={{ width: '100%' }}>
+
+        <div className="code-panel">
           <CopyBlock
             text={displayCode}
             language="javascript"

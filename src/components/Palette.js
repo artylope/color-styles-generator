@@ -39,6 +39,7 @@ const Palette = (props) => {
       return (
         <Swatch
           key={index}
+          value={colorLabel[index]}
           name={`${props.name}-${colorLabel[index]}`}
           h={hue}
           s={mutedSaturationScale[index]}
@@ -49,6 +50,7 @@ const Palette = (props) => {
       return (
         <Swatch
           key={index}
+          value={colorLabel[index]}
           name={`${props.name}-${colorLabel[index]}`}
           h={hue}
           s={normalSaturationScale[index]}
@@ -58,7 +60,12 @@ const Palette = (props) => {
     }
   });
 
-  return <div className="palette">{Swatches}</div>;
+  return (
+    <div className="palette-group">
+      <div className="palette-label ">{props.name}</div>
+      <div className="palette-swatches">{Swatches}</div>
+    </div>
+  );
 };
 
 export default Palette;

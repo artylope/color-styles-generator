@@ -10,8 +10,22 @@ body {
   margin: 0 auto;
 }
 
-.group {
+.canvas {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-top: 1rem;
+
+  .palette-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .code-panel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 }
