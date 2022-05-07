@@ -62,9 +62,11 @@ const Palette = (props) => {
 
   let selectedPalette = {
     name: `${props.name}`,
-    hue,
-    saturation,
-    brightness,
+    hue: hue,
+    saturation: saturation,
+    brightness: brightness,
+    color: props.color,
+    type: props.type,
   };
 
   return (

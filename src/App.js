@@ -35,60 +35,31 @@ function App() {
   const [infoColor, setInfoColor] = useState('#3d89d1');
 
   //name of the color to display in code panel
-  const [selectedColor, setSelectedColor] = useState('primary');
+  const [selectedColor, setSelectedColor] = useState({
+    name: 'primary',
+    hue: getHue(primaryColor),
+    saturation: getSaturation(primaryColor),
+    brightness: getBrightness(primaryColor),
+    hex: primaryColor,
+    type: 'normal',
+  });
 
   function handleSelectColor(palette) {
-    console.log('color selected');
-    console.log(...palette);
-    setSelectedColor(palette.name);
+    console.log('color selected', palette);
+
+    let updatedValues = {
+      name: palette.name,
+      hue: palette.hue,
+      saturation: palette.saturation,
+      brightness: palette.brightness,
+      hex: palette.color,
+      type: palette.type,
+    };
+    setSelectedColor((prevState) => ({
+      ...prevState,
+      ...updatedValues,
+    }));
   }
-
-  //base hsb
-  let hue = getHue(primaryColor);
-  let saturation = getSaturation(primaryColor);
-  let brightness = getBrightness(primaryColor);
-
-  //get scale
-  let brightnessScale = getBrightnessArray(brightness);
-  // console.log('brightnessScale', brightnessScale);
-
-  let normalSaturationScale = getNormalSaturationArray(saturation);
-  // console.log('normalSaturationScale', normalSaturationScale);
-
-  let neutralSaturationScale = getMutedSaturationArray(saturation);
-  // console.log('neutralSaturationScale', neutralSaturationScale);
-
-  let innerCode = brightnessScale.map((brightness, index) => {
-    return `
-        "${colorLabel[index]}": {
-          "value": "${HSBToHex(hue, normalSaturationScale[index], brightness)}",
-          "type": "color"
-        }`;
-  });
-
-  let primaryInnerCode = brightnessScale.map((brightness, index) => {
-    return `
-        "${colorLabel[index]}": {
-          "value": "${HSBToHex(hue, normalSaturationScale[index], brightness)}",
-          "type": "color"
-        }`;
-  });
-
-  let neutralInnerCode = brightnessScale.map((brightness, index) => {
-    return `
-        "${colorLabel[index]}": {
-          "value": "${HSBToHex(
-            hue,
-            neutralSaturationScale[index],
-            brightness
-          )}",
-          "type": "color"
-        }`;
-  });
-
-  let displayCode = `
-      "Primary": {${primaryInnerCode}},
-      "Neutral": {${neutralInnerCode}},`;
 
   return (
     <>
@@ -100,7 +71,6 @@ function App() {
             type="normal"
             name="primary"
             color={primaryColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -108,7 +78,6 @@ function App() {
             type="muted"
             name="neutral"
             color={primaryColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -116,7 +85,6 @@ function App() {
             type="normal"
             name="success"
             color={successColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -124,7 +92,6 @@ function App() {
             type="normal"
             name="danger"
             color={dangerColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -133,7 +100,6 @@ function App() {
             type="normal"
             name="warning"
             color={warningColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -141,7 +107,6 @@ function App() {
             type="normal"
             name="info"
             color={infoColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -149,7 +114,6 @@ function App() {
             type="normal"
             name="secondary"
             color={secondaryColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
@@ -157,22 +121,11 @@ function App() {
             type="normal"
             name="tertiary"
             color={tertiaryColor}
-            brightnessScale={brightnessScale}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
         </div>
-        {/* <div className="palette">{primaryElements}</div>
-        <div className="palette">{neutralElements}</div> */}
-        <div className="code-panel">
-          <CopyBlock
-            text={displayCode}
-            language="javascript"
-            theme={dracula}
-            codeBlock
-          />
-        </div>
-        <CodePanel color={selectedColor} innerCode={innerCode} />
+        <CodePanel color={selectedColor} />
       </div>
     </>
   );
