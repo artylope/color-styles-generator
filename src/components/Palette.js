@@ -26,13 +26,13 @@ const Palette = (props) => {
 
   //get scale
   let brightnessScale = getBrightnessArray(brightness);
-  console.log('brightnessScale', brightnessScale);
+  // console.log('brightnessScale', brightnessScale);
 
   let normalSaturationScale = getNormalSaturationArray(saturation);
-  console.log('normalSaturationScale', normalSaturationScale);
+  // console.log('normalSaturationScale', normalSaturationScale);
 
   let mutedSaturationScale = getMutedSaturationArray(saturation);
-  console.log('mutedSaturationScale', mutedSaturationScale);
+  // console.log('mutedSaturationScale', mutedSaturationScale);
 
   let Swatches = brightnessScale.map((brightness, index) => {
     if (props.type === 'muted') {
@@ -60,8 +60,20 @@ const Palette = (props) => {
     }
   });
 
+  let selectedPalette = {
+    name: `${props.name}`,
+    hue,
+    saturation,
+    brightness,
+  };
+
   return (
-    <div className="palette-group">
+    <div
+      className="palette-group"
+      onClick={() => {
+        props.handleSelectColor(selectedPalette);
+      }}
+    >
       <div className="palette-label ">{props.name}</div>
       <div className="palette-swatches">{Swatches}</div>
     </div>

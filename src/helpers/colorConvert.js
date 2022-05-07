@@ -14,8 +14,6 @@ export function HSBToRGB(h, s, b) {
 
 export function HSBToHex(h, s, b) {
   let colorFill = HSBToRGB(parseInt(h), parseInt(s), parseInt(b));
-
-  let rgb = `rgb(${colorFill})`;
   let hexCode = colorcolor(`rgb(${colorFill})`, 'hex');
 
   return hexCode;
@@ -29,6 +27,6 @@ export function HexToHSB(hex) {
     .replace('%', '')
     .replace('%', '')
     .split(',');
-  console.log('hsb', hsb);
+  // console.log('hsb', hsb);
   return hsb;
 }

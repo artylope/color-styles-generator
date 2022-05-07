@@ -3,7 +3,7 @@ import '../styles/Swatch.scss';
 import { HSBToRGB, HSBToHex } from '../helpers/colorConvert';
 
 const Swatch = (props) => {
-  console.log(props);
+  // console.log(props);
   let colorFill = HSBToRGB(
     parseInt(props.h),
     parseInt(props.s),
