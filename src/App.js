@@ -4,25 +4,15 @@ import { useState } from 'react';
 import './App.scss';
 
 //components
+import ColorScheme from './components/ColorScheme';
 import Palette from './components/Palette';
-import Swatch from './components/Swatch';
 import CodePanel from './components/CodePanel';
 
 //external
 import { HexColorPicker, HexColorInput } from 'react-colorful';
-import { CopyBlock, dracula } from 'react-code-blocks';
-
-//constants
-import { colorLabel } from './constants/global';
 
 //helpers
-import { HexToHSB, HSBToHex } from './helpers/colorConvert';
 import { getHue, getSaturation, getBrightness } from './helpers/hsb';
-import {
-  getBrightnessArray,
-  getMutedSaturationArray,
-  getNormalSaturationArray,
-} from './helpers/generateColorScale';
 
 function App() {
   //variables
@@ -63,6 +53,7 @@ function App() {
 
   return (
     <>
+      <ColorScheme />
       <HexColorPicker color={primaryColor} onChange={setPrimaryColor} />;
       <HexColorInput color={primaryColor} onChange={setPrimaryColor} />
       <div className="canvas">

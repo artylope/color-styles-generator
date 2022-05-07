@@ -1,0 +1,18 @@
+.color-box-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .color-box {
+    width: 120px;
+    height: 120px;
+    border-radius: 9px;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    margin-right: 0.25rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
