@@ -2,7 +2,7 @@ const baseColor = '#2B49B5';
 const noOfStops = 11;
 const stopsMid = 7;
 const stopsLeft = stopsMid - 1;
-const stopsRight = noOfStops - stopsMid;
+const stopsRight = noOfStops - stopsLeft - 1;
 const colorLabel = [
   '025',
   '050',

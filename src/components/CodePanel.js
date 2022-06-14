@@ -2,7 +2,7 @@ import React from 'react';
 import { HexToHSB, HSBToHex } from '../helpers/colorConvert';
 import { getHue, getSaturation, getBrightness } from '../helpers/hsb';
 import {
-  getBrightnessArray,
+  getNormalBrightnessArray,
   getMutedSaturationArray,
   getNormalSaturationArray,
 } from '../helpers/generateColorScale';
@@ -23,7 +23,7 @@ const CodePanel = (props) => {
   let hue = getHue(color.hex);
   let brightness = getBrightness(color.hex);
   let saturation = getSaturation(color.hex);
-  let brightnessScale = getBrightnessArray(brightness);
+  let brightnessScale = getNormalBrightnessArray(brightness);
 
   //get the selected color
 

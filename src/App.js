@@ -16,13 +16,14 @@ import { getHue, getSaturation, getBrightness } from './helpers/hsb';
 
 function App() {
   //variables
-  const [primaryColor, setPrimaryColor] = useState('#2B49B5');
+  const [primaryColor, setPrimaryColor] = useState('#2e1496');
   const [secondaryColor, setSecondaryColor] = useState('#2e1496');
   const [tertiaryColor, setTertiaryColor] = useState('#18abab');
   const [successColor, setSuccessColor] = useState('#018c50');
   const [dangerColor, setDangerColor] = useState('#c21919');
   const [warningColor, setWarningColor] = useState('#e89c2a');
   const [infoColor, setInfoColor] = useState('#3d89d1');
+  const [greyColor, setGreyColor] = useState('#808080');
 
   //name of the color to display in code panel
   const [selectedColor, setSelectedColor] = useState({
@@ -86,7 +87,6 @@ function App() {
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />
-
           <Palette
             type="normal"
             name="warning"
@@ -112,6 +112,13 @@ function App() {
             type="normal"
             name="tertiary"
             color={tertiaryColor}
+            handleSelectColor={handleSelectColor}
+            selected={selectedColor}
+          />
+          <Palette
+            type="greyscale"
+            name="BaseGrey"
+            color={greyColor}
             handleSelectColor={handleSelectColor}
             selected={selectedColor}
           />

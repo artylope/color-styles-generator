@@ -2,7 +2,8 @@ import React from 'react';
 import { HexToHSB, HSBToHex } from '../helpers/colorConvert';
 import { getHue, getSaturation, getBrightness } from '../helpers/hsb';
 import {
-  getBrightnessArray,
+  getMutedBrightnessArray,
+  getNormalBrightnessArray,
   getMutedSaturationArray,
   getNormalSaturationArray,
 } from '../helpers/generateColorScale';
@@ -25,7 +26,10 @@ const Palette = (props) => {
   let brightness = getBrightness(props.color);
 
   //get scale
-  let brightnessScale = getBrightnessArray(brightness);
+  let normalBrightnessScale = getNormalBrightnessArray(brightness);
+  // console.log('brightnessScale', brightnessScale);
+
+  let mutedBrightnessScale = getMutedBrightnessArray(brightness);
   // console.log('brightnessScale', brightnessScale);
 
   let normalSaturationScale = getNormalSaturationArray(saturation);
@@ -34,7 +38,7 @@ const Palette = (props) => {
   let mutedSaturationScale = getMutedSaturationArray(saturation);
   // console.log('mutedSaturationScale', mutedSaturationScale);
 
-  let Swatches = brightnessScale.map((brightness, index) => {
+  let Swatches = normalBrightnessScale.map((brightness, index) => {
     if (props.type === 'muted') {
       return (
         <Swatch
@@ -43,10 +47,10 @@ const Palette = (props) => {
           name={`${props.name}-${colorLabel[index]}`}
           h={hue}
           s={mutedSaturationScale[index]}
-          b={brightness}
+          b={mutedBrightnessScale[index]}
         />
       );
-    } else {
+    } else if (props.type === 'normal') {
       return (
         <Swatch
           key={index}
@@ -54,6 +58,17 @@ const Palette = (props) => {
           name={`${props.name}-${colorLabel[index]}`}
           h={hue}
           s={normalSaturationScale[index]}
+          b={brightness}
+        />
+      );
+    } else if (props.type === 'greyscale') {
+      return (
+        <Swatch
+          key={index}
+          value={colorLabel[index]}
+          name={`${props.name}-${colorLabel[index]}`}
+          h="230"
+          s={mutedSaturationScale[index]}
           b={brightness}
         />
       );
