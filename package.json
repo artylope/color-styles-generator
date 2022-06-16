@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "colorcolor": "^1.1.1",
+    "gh-pages": "^4.0.0",
     "react": "^18.1.0",
     "react-code-blocks": "^0.0.9-0",
     "react-colorful": "^5.5.1",
